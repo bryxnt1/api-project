@@ -1,63 +1,63 @@
-import Character from "../models/Character.js";
+import Shiba from "../models/shiba.js";
 
-export const getCharacters = async (req, res) => {
+export const getShibas = async (req, res) => {
   try {
-    const characters = await Character.find();
-    res.json(characters);
+    const shibas = await Shiba.find();
+    res.json(shibas);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
 
-export const getCharacter = async (req, res) => {
+export const getShiba = async (req, res) => {
   try {
     const { id } = req.params;
-    const character = await Character.findById(id);
+    const shiba = await Shiba.findById(id);
 
-    if (character) {
-      return res.json(character);
+    if (shiba) {
+      return res.json(shiba);
     }
 
-    res.status(404).json({ message: "Character not found!" });
+    res.status(404).json({ message: "Shiba not found!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
 
-export const createCharacter = async (req, res) => {
+export const createShiba = async (req, res) => {
   try {
-    const character = new Character(req.body);
-    await character.save();
-    res.status(201).json(character);
+    const shiba = new Shiba(req.body);
+    await shiba.save();
+    res.status(201).json(shiba);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
 
-export const updateCharacter = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const character = await Character.findByIdAndUpdate(id, req.body);
-    res.status(201).json(character);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-};
-
-export const deleteCharacter = async (req, res) => {
+export const updateShiba = async (req, res) => {
   try {
     const { id } = req.params;
-    const deleted = await Character.findByIdAndDelete(id);
+    const shiba = await Shiba.findByIdAndUpdate(id, req.body);
+    res.status(201).json(shiba);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const deleteShiba = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await Shiba.findByIdAndDelete(id);
 
     if (deleted) {
-      return res.status(200).send("Character deleted!");
+      return res.status(200).send("Shiba deleted!");
     }
 
-    throw new Error("Character not found");
+    throw new Error("Shiba not found");
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
